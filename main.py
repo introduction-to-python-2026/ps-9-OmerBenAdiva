@@ -5,19 +5,19 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 
-# 1. Load dataset
+# Load data
 df = pd.read_csv("parkinsons.csv")
 
-# 2. Select features and target
-selected_features = ["PPE", "spread1"]
-X = df[selected_features]
+# Features must match config.yaml
+features = ["PPE", "spread1"]
+X = df[features]
 y = df["status"].astype(int)
 
-# 3. Scale data
+# Scale
 scaler = MinMaxScaler()
 X_scaled = scaler.fit_transform(X)
 
-# 4. Split data
+# Split
 X_train, X_val, y_train, y_val = train_test_split(
     X_scaled,
     y,
@@ -26,7 +26,7 @@ X_train, X_val, y_train, y_val = train_test_split(
     stratify=y
 )
 
-# 5. Choose model
+# Model
 model = SVC(
     kernel="rbf",
     C=2.0,
@@ -34,8 +34,7 @@ model = SVC(
     class_weight="balanced"
 )
 
-# 6. Train model
 model.fit(X_train, y_train)
 
-# 7. Save model
+# Save model ONLY
 joblib.dump(model, "my_model.joblib")
