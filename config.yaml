@@ -1,4 +1,2 @@
-selected_features:
-  - PPE
-  - spread1
-path: my_model.joblib
+path: "my_model.joblib"
+features: ["PPE", "spread1"]
